@@ -1,147 +1,123 @@
-<h1 align="center">
-  <br>
-  <img src="resources/todo-tree.png" alt="Todo Tree Next" width="100">
-  <br>
-  Todo Tree Next
-  <br>
-</h1>
+# Todo Tree_Next
 
-<p align="center">
-  <strong>A modern rewrite of Todo Tree — TypeScript + Rust architecture for blazing-fast TODO scanning in VS Code.</strong>
-</p>
+**Todo Tree_Next** is a modern rewrite of the classic VS Code Todo Tree extension. It keeps the familiar tree, highlighting, filtering, and navigation workflow, while adding a Rust scanner, TypeScript modules, Git-aware task views, and an AI Agent interface.
 
-<p align="center">
-  <a href="README.md">English</a> | <a href="README_CN.md">中文</a>
-</p>
+The extension is published on the VS Code Marketplace as **Todo Tree_Next**.
 
-<p align="center">
-  <img src="https://img.shields.io/badge/TypeScript-4.x-blue?logo=typescript" alt="TypeScript">
-  <img src="https://img.shields.io/badge/Rust-Scanner-orange?logo=rust" alt="Rust">
-  <img src="https://img.shields.io/badge/VS%20Code-Extension-007ACC?logo=visual-studio-code" alt="VS Code">
-  <img src="https://img.shields.io/badge/Tests-135%20passing-brightgreen" alt="Tests">
-</p>
+## Highlights
 
----
+| Area | What changed |
+| --- | --- |
+| Scanner | Rust native scanner with ripgrep fallback |
+| Refresh | Fast file-level incremental scan for save/open events |
+| Metadata | `P0`-`P3`, `TODO!`, `TODO?`, `@assignee`, `due:YYYY-MM-DD`, `#labels` |
+| Markdown | Native `- [ ]`, `- [x]`, and numbered task support |
+| Filtering | Structured queries such as `tag:TODO path:src priority:P0` |
+| Git | Scan changed/staged files and export TODO debt reports |
+| Dashboard | Webview dashboard with counts, charts, scanner controls, and Git actions |
+| AI Agent | Structured TODO context and editor annotations for AI coding tools |
 
-## ✨ What's New
+## Installation
 
-This is a **modern rewrite** of the popular [Todo Tree](https://github.com/Gruntfuggly/todo-tree) VS Code extension. It preserves the familiar UI while introducing a high-performance Rust scanning core and a suite of new features.
+Install from the VS Code Marketplace by searching for:
 
-| Feature | Original | This Rewrite |
-|---------|----------|--------------|
-| Scanner | ripgrep subprocess | **Rust native scanner** + ripgrep fallback |
-| Update mode | Full workspace rescan | **Incremental file-level scan** |
-| Markdown TODOs | Manual regex config | **Native support, zero config** |
-| Filtering | Plain text only | **Structured query syntax** |
-| Git integration | Minimal | **Changed/staged scan + debt reports** |
-| Dashboard | None | **Interactive Webview with charts** |
-| Priority tracking | None | **P0–P3, @assignee, due:date, #labels** |
-| AI agent interface | None | **Agent-ready TODO context + editor annotations** |
-| Architecture | Monolithic JS | **Modular TypeScript + Rust** |
-
----
-
-## 📦 安装
-
-**方式一：VS Code 插件市场**
-
-在 VS Code 扩展商店搜索 **Todo Tree_Next** 即可安装。
-
-**方式二：离线安装 .vsix**
-
-从 [Releases](https://github.com/real-Elysia886/Todo-Tree-Next/releases) 页面下载最新 `.vsix` 文件，然后在 VS Code 中：
-
-1. 打开扩展面板 (`Ctrl+Shift+X`)
-2. 点击 `...` → **从 VSIX 安装...**
-3. 选择下载的 `.vsix` 文件
-
----
-
-## 🚀 开发构建
-
-```bash
-git clone https://github.com/real-Elysia886/new-todo-tree.git
-cd new-todo-tree
-npm install
-npm run scanner:build   # Requires Rust toolchain
-npm run webpack
-npm test                # 97 QUnit + 38 Rust = 135 tests
+```text
+Todo Tree_Next
 ```
 
-Press `F5` in VS Code to launch the extension in a development host.
+You can also install a packaged `.vsix` manually:
 
----
+1. Open VS Code Extensions.
+2. Choose `...` > `Install from VSIX...`.
+3. Select the generated `todo-tree-*.vsix` package.
 
-## 🏗️ Architecture
+## Core Workflow
 
-```
-┌─────────────────────────────────────────────────────┐
-│  VS Code Extension Layer (TypeScript)               │
-│                                                     │
-│  extension.js → scannerClient.ts → Rust CLI (JSON)  │
-│       ↓              ↓                              │
-│  tree.ts    dashboard.ts   filterQuery.ts           │
-│  statusBar  gitScanner     debtReport               │
-└─────────────────────────────────────────────────────┘
-         │                        │
-         ▼                        ▼
-┌─────────────────┐    ┌─────────────────────┐
-│  Rust Scanner   │    │  ripgrep (fallback)  │
-│  walker.rs      │    └─────────────────────┘
-│  matcher.rs     │
-│  output.rs      │
-└─────────────────┘
+Open the Todo Tree activity bar view to see TODOs grouped by file, tag, or flat list. Click an item to jump to the source line. The extension updates on workspace scans, open file scans, current file scans, and file save events.
+
+Common commands:
+
+```text
+Todo Tree: Refresh
+Todo Tree: Open Dashboard
+Todo Tree: Scan Changed Files
+Todo Tree: Scan Staged Files
+Todo Tree: Export TODO Debt Report
+Todo Tree: Get Agent TODO Context
+Todo Tree: Clear Agent Annotations
 ```
 
----
+## Smart Filtering
 
-## 🔍 Smart Filtering
+The tree filter supports plain text and field queries:
 
+```text
+auth
+tag:TODO
+path:src
+file:README.md
+text:refactor
+priority:P0
+status:open
+tag:FIXME path:src priority:P1
 ```
-tag:TODO path:src priority:P0
-tag:FIXME file:main.ts
-status:open text:refactor
-```
+
+Supported fields:
 
 | Field | Matches |
-|-------|---------|
-| `tag` | TODO, FIXME, BUG, [ ], [x] |
+| --- | --- |
+| `tag` | `TODO`, `FIXME`, `BUG`, `[ ]`, `[x]`, custom tags |
 | `path` | Full file path |
 | `file` | File name only |
-| `text` | TODO content text |
-| `priority` | P0, P1, P2, P3, none |
-| `status` | open, done (markdown tasks) |
+| `text` | TODO text |
+| `priority` | `P0`, `P1`, `P2`, `P3`, `none` |
+| `status` | Markdown task status: `open` or `done` |
 
----
+## Priority And Metadata
 
-## 📊 Dashboard
-
-Open with `Todo Tree: Open Dashboard`:
-
-- **Tag distribution** — SVG pie chart
-- **Tag counts** — SVG bar chart
-- **TODO trend** — Line chart from Git history
-- **Scanner controls** — Switch engine, scan mode, file size limit
-- **Smart filter** — Apply structured queries
-- **Git actions** — Scan changed/staged files
-
----
-
-## 🔗 Git Integration
-
-```
-Todo Tree: Scan Changed Files     — TODOs in uncommitted changes
-Todo Tree: Scan Staged Files      — TODOs in staged files
-Todo Tree: Export TODO Debt Report — Compare branch vs base
+```javascript
+// TODO:P0 fix auth bug @alice due:2026-06-01 #security
+// FIXME:P1 memory leak @bob #backend
+// TODO! urgent task      -> P0
+// TODO? needs discussion -> P2
 ```
 
----
+The Rust scanner extracts metadata into structured fields so the tree, dashboard, export, and AI Agent interface can reason about task urgency and ownership.
+
+## Dashboard
+
+Open with:
+
+```text
+Todo Tree: Open Dashboard
+```
+
+The dashboard provides:
+
+- Total TODO count and tag distribution
+- Priority distribution
+- Tag charts and trend chart
+- Scanner engine switch: `auto`, `rust`, `ripgrep`
+- Scan mode controls
+- Max file size setting
+- Smart filter input
+- Git changed/staged scan actions
+
+## Git Integration
+
+```text
+Todo Tree: Scan Changed Files
+Todo Tree: Scan Staged Files
+Todo Tree: Export TODO Debt Report
+```
+
+Git-aware scans help focus on TODOs introduced or touched by the current branch. The debt report compares the current branch against a base branch and summarizes added/removed TODOs.
 
 ## AI Agent Interface
 
-Todo Tree Next exposes TODO debt as structured data for AI coding tools. Agents can read ranked TODO context and write temporary editor annotations back into VS Code.
+Todo Tree_Next exposes TODO debt as structured data for AI coding tools. Agents can read ranked TODO context and write temporary editor annotations back into VS Code.
 
-Programmatic VS Code commands:
+VS Code command API:
 
 ```javascript
 const context = await vscode.commands.executeCommand('todo-tree.getAgentContext');
@@ -157,84 +133,70 @@ await vscode.commands.executeCommand('todo-tree.annotateAgentFinding', {
 await vscode.commands.executeCommand('todo-tree.clearAgentAnnotations');
 ```
 
-CLI:
+Rust CLI:
 
 ```bash
 todo-scanner agent-context --root . --config todo-scanner-config.json
 ```
 
-The JSON output includes file path, line/column, tag, priority, assignee, due date, labels, Git status, approximate age, context snippet, recommended action, and recommended processing order. See [docs/AGENT_INTERFACE.md](docs/AGENT_INTERFACE.md) for the schema.
+The Agent context includes file path, line/column, tag, priority, assignee, due date, labels, Git status, approximate age, code context snippet, recommended action, and recommended processing order.
 
----
+See [docs/AGENT_INTERFACE.md](docs/AGENT_INTERFACE.md) for the full schema.
 
-## 🏷️ Priority & Metadata
+## Architecture
 
-```javascript
-// TODO:P0 fix auth bug @alice due:2026-06-01 #security
-// FIXME:P1 memory leak @bob #backend
-// TODO! urgent task          → P0
-// TODO? needs discussion     → P2
+```text
+VS Code extension
+  src/extension.js          entry point and legacy glue
+  src/scannerClient.ts      Rust CLI JSON protocol
+  src/agentInterface.ts     AI Agent context and annotations
+  src/dashboard.ts          Webview dashboard
+  src/tree.ts               Tree data provider
+  src/filterQuery.ts        Structured filter parser
+  src/gitScanner.ts         Git changed/staged scan
+  src/debtReport.ts         Git TODO debt report
+  src/fileWatcher.ts        File event handling
+  src/statusBar.ts          Status bar and activity badge
+
+Rust scanner
+  scanner/src/main.rs       scan-workspace, scan-file, agent-context, benchmark
+  scanner/src/walker.rs     .gitignore-aware traversal
+  scanner/src/matcher.rs    TODO matching and metadata extraction
+  scanner/src/output.rs     JSON output schema
 ```
 
----
+## Development
 
-## 📈 Performance
+Requirements:
 
-Benchmarked on a 5000-file test corpus (~500k lines):
+- Node.js
+- Rust toolchain
+- VS Code
 
-| Scenario | Result |
-|----------|--------|
-| Full workspace scan (5000 files) | **122 ms** |
-| Single file rescan | **17 ms** |
-| Incremental improvement | **7–140x** faster than full rescan |
-
-See [docs/BENCHMARK.md](docs/BENCHMARK.md) for full report.
-
----
-
-## 🧪 Testing
-
-| Type | Count | Coverage |
-|------|-------|----------|
-| Rust unit tests | 38 | Tag matching, priority, metadata, markdown, file skip |
-| QUnit unit tests | 97 | Filter query, debt report, scanner mapping, git files, scope guards |
-| **Total** | **135** | |
-
----
-
-## 📁 Project Structure
-
-```
-src/
-├── extension.js          # Entry point
-├── scannerClient.ts      # Rust CLI JSON protocol
-├── tree.ts               # TreeView provider
-├── highlights.ts         # Editor highlighting
-├── dashboard.ts          # Webview dashboard + charts
-├── filterQuery.ts        # Smart query parser
-├── debtReport.ts         # Git diff debt report
-├── agentInterface.ts     # AI agent context + annotations
-├── gitScanner.ts         # Git changed/staged scan
-├── configMigrator.ts     # Settings migration
-├── scopeManager.ts       # Folder filter commands
-├── statusBar.ts          # Status bar manager
-├── fileWatcher.ts        # Document event handling
-├── navigationCommands.ts # Go to next/previous TODO
-├── commands.ts           # Command registration
-├── exportManager.ts      # Tree export
-└── types.ts              # Shared TypeScript types
-
-scanner/src/
-├── main.rs               # CLI: scan-workspace, scan-file, agent-context, benchmark
-├── config.rs             # JSON config parsing
-├── walker.rs             # .gitignore-aware file traversal
-├── matcher.rs            # Regex matching + metadata extraction
-└── output.rs             # Structured JSON output
+```bash
+npm install
+npm run scanner:build
+npm run webpack
+npm test
+cargo test --manifest-path scanner/Cargo.toml
 ```
 
----
+Package a VSIX:
 
-## ⚙️ Configuration
+```bash
+npm run vscode:prepublish
+npx --yes @vscode/vsce package
+```
+
+Current test coverage:
+
+| Type | Count |
+| --- | ---: |
+| QUnit tests | 97 |
+| Rust tests | 38 |
+| Total | 135 |
+
+## Configuration
 
 ```json
 {
@@ -245,29 +207,18 @@ scanner/src/
 ```
 
 | Value | Behavior |
-|-------|----------|
-| `auto` | Use Rust scanner if available, fallback to ripgrep |
-| `rust` | Force Rust scanner (error if unavailable) |
-| `ripgrep` | Use original ripgrep scanning |
+| --- | --- |
+| `auto` | Use Rust scanner when available, fallback to ripgrep |
+| `rust` | Force Rust scanner |
+| `ripgrep` | Use the original ripgrep scanner |
 
----
+## Documentation
 
-## 🔒 Security
+- [Rewrite notes](docs/REWRITE.md)
+- [Feature compatibility](docs/COMPATIBILITY.md)
+- [AI Agent interface](docs/AGENT_INTERFACE.md)
+- [Benchmark report](docs/BENCHMARK.md)
 
-- Read-only scanning — never modifies user code
-- Path traversal protection — refuses files outside workspace root
-- No shell command injection — uses `spawn` with argument arrays
-- Binary file detection and skip
-- Configurable max file size limit
+## License
 
----
-
-## 📄 License
-
-MIT — see [LICENSE](LICENSE).
-
-## 🙏 Credits
-
-Based on [Todo Tree](https://github.com/Gruntfuggly/todo-tree) by Gruntfuggly.
-
-See [docs/REWRITE.md](docs/REWRITE.md) for architecture docs | [docs/COMPATIBILITY.md](docs/COMPATIBILITY.md) for feature compatibility | [docs/AGENT_INTERFACE.md](docs/AGENT_INTERFACE.md) for AI agent integration.
+MIT. Based on the original [Todo Tree](https://github.com/Gruntfuggly/todo-tree) extension by Gruntfuggly.
