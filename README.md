@@ -40,7 +40,23 @@ This is a **modern rewrite** of the popular [Todo Tree](https://github.com/Grunt
 
 ---
 
-## 🚀 Quick Start
+## 📦 安装
+
+**方式一：VS Code 插件市场**
+
+在 VS Code 扩展商店搜索 **Todo Tree Next** 即可安装。
+
+**方式二：离线安装 .vsix**
+
+从 [Releases](https://github.com/real-Elysia886/Todo-Tree-Next/releases) 页面下载最新 `.vsix` 文件，然后在 VS Code 中：
+
+1. 打开扩展面板 (`Ctrl+Shift+X`)
+2. 点击 `...` → **从 VSIX 安装...**
+3. 选择下载的 `.vsix` 文件
+
+---
+
+## 🚀 开发构建
 
 ```bash
 git clone https://github.com/real-Elysia886/new-todo-tree.git
